@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Personal</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ personal.id }}</td>
+            </tr>
+            <tr>
+                <th>Ci</th>
+                <td>{{ personal.ci }}</td>
+            </tr>
+            <tr>
+                <th>Nombres</th>
+                <td>{{ personal.nombres }}</td>
+            </tr>
+            <tr>
+                <th>Apellidos</th>
+                <td>{{ personal.apellidos }}</td>
+            </tr>
+            <tr>
+                <th>Departamento</th>
+                <td>{{ personal.departamento }}</td>
+            </tr>
+            <tr>
+                <th>Tipo</th>
+                <td>{{ personal.tipo }}</td>
+            </tr>
+            <tr>
+                <th>Correo</th>
+                <td>{{ personal.correo }}</td>
+            </tr>
+            <tr>
+                <th>Genero</th>
+                <td>{{ personal.genero }}</td>
+            </tr>
+            <tr>
+                <th>Direccion</th>
+                <td>{{ personal.direccion }}</td>
+            </tr>
+            <tr>
+                <th>Telefono</th>
+                <td>{{ personal.telefono }}</td>
+            </tr>
+            <tr>
+                <th>Fechanacimiento</th>
+                <td>{% if personal.fechaNacimiento %}{{ personal.fechaNacimiento|date('Y-m-d') }}{% endif %}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('personal_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('personal_edit', { 'id': personal.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

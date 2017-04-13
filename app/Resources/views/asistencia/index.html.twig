@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Asistencias list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Horaentrada</th>
+                <th>Horasalida</th>
+                <th>Fecha</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for asistencia in asistencias %}
+            <tr>
+                <td><a href="{{ path('asistencia_show', { 'id': asistencia.id }) }}">{{ asistencia.id }}</a></td>
+                <td>{% if asistencia.horaEntrada %}{{ asistencia.horaEntrada|date('H:i:s') }}{% endif %}</td>
+                <td>{% if asistencia.horaSalida %}{{ asistencia.horaSalida|date('H:i:s') }}{% endif %}</td>
+                <td>{% if asistencia.fecha %}{{ asistencia.fecha|date('H:i:s') }}{% endif %}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('asistencia_show', { 'id': asistencia.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('asistencia_edit', { 'id': asistencia.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('asistencia_new') }}">Create a new asistencia</a>
+        </li>
+    </ul>
+{% endblock %}

@@ -5,12 +5,12 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * TieneAcceso
+ * Acceso
  *
  * @ORM\Table(name="tiene_acceso")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\TieneAccesoRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\AccesoRepository")
  */
-class TieneAcceso
+class Acceso
 {
     /**
      * @var int
@@ -70,7 +70,7 @@ class TieneAcceso
      *
      * @param string $estado
      *
-     * @return TieneAcceso
+     * @return Acceso
      */
     public function setEstado($estado)
     {
@@ -94,7 +94,7 @@ class TieneAcceso
      *
      * @param \DateTime $diaInicio
      *
-     * @return TieneAcceso
+     * @return Acceso
      */
     public function setDiaInicio($diaInicio)
     {
@@ -118,7 +118,7 @@ class TieneAcceso
      *
      * @param \DateTime $diaFin
      *
-     * @return TieneAcceso
+     * @return Acceso
      */
     public function setDiaFin($diaFin)
     {
@@ -142,7 +142,7 @@ class TieneAcceso
      *
      * @param \AppBundle\Entity\Personal $persona
      *
-     * @return TieneAcceso
+     * @return Acceso
      */
     public function setPersona(\AppBundle\Entity\Personal $persona = null)
     {
@@ -166,7 +166,7 @@ class TieneAcceso
      *
      * @param \AppBundle\Entity\Area $lugar
      *
-     * @return TieneAcceso
+     * @return Acceso
      */
     public function setLugar(\AppBundle\Entity\Area $lugar = null)
     {

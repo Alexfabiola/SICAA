@@ -5,12 +5,12 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Accede
+ * Asistencia
  *
- * @ORM\Table(name="accede")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\AccedeRepository")
+ * @ORM\Table(name="asistencia")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\AsistenciaRepository")
  */
-class Accede
+class Asistencia
 {
     /**
      * @var int
@@ -69,7 +69,7 @@ class Accede
      *
      * @param \DateTime $horaEntrada
      *
-     * @return Accede
+     * @return Asistencia
      */
     public function setHoraEntrada($horaEntrada)
     {
@@ -93,7 +93,7 @@ class Accede
      *
      * @param \DateTime $horaSalida
      *
-     * @return Accede
+     * @return Asistencia
      */
     public function setHoraSalida($horaSalida)
     {
@@ -117,7 +117,7 @@ class Accede
      *
      * @param \DateTime $fecha
      *
-     * @return Accede
+     * @return Asistencia
      */
     public function setFecha($fecha)
     {
@@ -142,7 +142,7 @@ class Accede
      *
      * @param \AppBundle\Entity\Personal $personal
      *
-     * @return Accede
+     * @return Asistencia
      */
     public function setPersonal(\AppBundle\Entity\Personal $personal = null)
     {
@@ -159,5 +159,29 @@ class Accede
     public function getPersonal()
     {
         return $this->personal;
+    }
+
+    /**
+     * Set lugar
+     *
+     * @param \AppBundle\Entity\Area $lugar
+     *
+     * @return Asistencia
+     */
+    public function setLugar(\AppBundle\Entity\Area $lugar = null)
+    {
+        $this->lugar = $lugar;
+
+        return $this;
+    }
+
+    /**
+     * Get lugar
+     *
+     * @return \AppBundle\Entity\Area
+     */
+    public function getLugar()
+    {
+        return $this->lugar;
     }
 }

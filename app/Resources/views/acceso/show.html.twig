@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Acceso</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ Acceso.id }}</td>
+            </tr>
+            <tr>
+                <th>Estado</th>
+                <td>{{ Acceso.estado }}</td>
+            </tr>
+            <tr>
+                <th>Diainicio</th>
+                <td>{% if Acceso.diaInicio %}{{ Acceso.diaInicio|date('Y-m-d') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Diafin</th>
+                <td>{% if Acceso.diaFin %}{{ Acceso.diaFin|date('Y-m-d') }}{% endif %}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('acceso_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('acceso_edit', { 'id': Acceso.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

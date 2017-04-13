@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>accesos list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Estado</th>
+                <th>Diainicio</th>
+                <th>Diafin</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for Acceso in Accesos %}
+            <tr>
+                <td><a href="{{ path('acceso_show', { 'id': Acceso.id }) }}">{{ Acceso.id }}</a></td>
+                <td>{{ Acceso.estado }}</td>
+                <td>{% if Acceso.diaInicio %}{{ Acceso.diaInicio|date('Y-m-d') }}{% endif %}</td>
+                <td>{% if Acceso.diaFin %}{{ Acceso.diaFin|date('Y-m-d') }}{% endif %}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('acceso_show', { 'id': Acceso.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('acceso_edit', { 'id': Acceso.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('acceso_new') }}">Create a new Acceso</a>
+        </li>
+    </ul>
+{% endblock %}
