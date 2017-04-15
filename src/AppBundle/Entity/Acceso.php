@@ -31,14 +31,14 @@ class Acceso
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="dia_inicio", type="date")
+     * @ORM\Column(name="dia_inicio", type="datetime")
      */
     private $diaInicio;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="dia_fin", type="date")
+     * @ORM\Column(name="dia_fin", type="datetime")
      */
     private $diaFin;
 

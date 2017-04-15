@@ -78,9 +78,9 @@ class Personal
     private $direccion;
 
     /**
-     * @var int
+     * @var string
      *
-     * @ORM\Column(name="telefono", type="integer")
+     * @ORM\Column(name="telefono", type="string", length=25)
      */
     private $telefono;
 
@@ -340,5 +340,10 @@ class Personal
     public function getFechaNacimiento()
     {
         return $this->fechaNacimiento;
+    }
+
+     public function __toString()
+    {
+        return (string) $this->getNombres().' '.$this->getApellidos();
     }
 }

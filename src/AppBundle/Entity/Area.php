@@ -24,6 +24,13 @@ class Area
     /**
      * @var string
      *
+     * @ORM\Column(name="nombre", type="string", length=100)
+     */
+    private $nombre;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="descripcion", type="string", length=255)
      */
     private $descripcion;
@@ -123,5 +130,34 @@ class Area
     public function getTipoArea()
     {
         return $this->tipoArea;
+    }
+
+    /**
+     * Set nombre
+     *
+     * @param string $nombre
+     *
+     * @return Area
+     */
+    public function setNombre($nombre)
+    {
+        $this->nombre = $nombre;
+
+        return $this;
+    }
+
+    /**
+     * Get nombre
+     *
+     * @return string
+     */
+    public function getNombre()
+    {
+        return $this->nombre;
+    }
+
+      public function __toString()
+    {
+        return (string) $this->getNombre();
     }
 }

@@ -21,6 +21,14 @@
                 <th>Fecha</th>
                 <td>{% if asistencia.fecha %}{{ asistencia.fecha|date('H:i:s') }}{% endif %}</td>
             </tr>
+            <tr>
+                <th>Persona</th>
+                <td>{{ asistencia.persona }}</td>
+            </tr>
+            <tr>
+                <th>Lugar</th>
+                <td>{{ asistencia.lugar }}</td>
+            </tr>
         </tbody>
     </table>
 

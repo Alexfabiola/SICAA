@@ -21,6 +21,14 @@
                 <th>Diafin</th>
                 <td>{% if Acceso.diaFin %}{{ Acceso.diaFin|date('Y-m-d') }}{% endif %}</td>
             </tr>
+            <tr>
+                <th>Persona</th>
+                <td>{{ Acceso.persona }}</td>
+            </tr>
+             <tr>
+                <th>Lugar</th>
+                <td>{{ Acceso.lugar }}</td>
+            </tr>
         </tbody>
     </table>
 

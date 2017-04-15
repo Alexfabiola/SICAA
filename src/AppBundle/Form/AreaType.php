@@ -5,6 +5,7 @@ namespace AppBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class AreaType extends AbstractType
 {
@@ -13,7 +14,17 @@ class AreaType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('descripcion')->add('ubicacion')->add('tipoArea');
+        $builder
+        ->add('nombre')
+        ->add('descripcion')
+        ->add('ubicacion')
+        ->add('tipoArea', ChoiceType::class, array('choices'  => array(
+                                                    'Oficina' => 'oficina',
+                                                    'Laboratorio'=> 'laboratorio',
+                                                    'Aula'=> 'aula',
+                                                    'Sala' => 'sala',
+                                                    'Auditorio' => 'auditorio',
+                                                    'Otro' => 'otro',)));
     }
     
     /**

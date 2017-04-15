@@ -10,6 +10,8 @@
                 <th>Horaentrada</th>
                 <th>Horasalida</th>
                 <th>Fecha</th>
+                <th>Persona</th>
+                <th>Lugar</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -20,6 +22,8 @@
                 <td>{% if asistencia.horaEntrada %}{{ asistencia.horaEntrada|date('H:i:s') }}{% endif %}</td>
                 <td>{% if asistencia.horaSalida %}{{ asistencia.horaSalida|date('H:i:s') }}{% endif %}</td>
                 <td>{% if asistencia.fecha %}{{ asistencia.fecha|date('H:i:s') }}{% endif %}</td>
+                <td>{{ asistencia.personal }}</td>
+                <td>{{ asistencia.lugar }}</td>
                 <td>
                     <ul>
                         <li>

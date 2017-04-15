@@ -24,6 +24,13 @@ class Area
     /**
      * @var string
      *
+     * @ORM\Column(name="nombre", type="string", length=100)
+     */
+    private $nombre;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="descripcion", type="string", length=255)
      */
     private $descripcion;
@@ -125,4 +132,3 @@ class Area
         return $this->tipoArea;
     }
 }
-

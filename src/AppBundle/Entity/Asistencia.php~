@@ -36,9 +36,9 @@ class Asistencia
     private $horaSalida;
 
     /**
-     * @var \DateTime
+     * @var \Date
      *
-     * @ORM\Column(name="fecha_de_acceso", type="time")
+     * @ORM\Column(name="fecha_de_acceso", type="date")
      */
     private $fecha;
 

@@ -31,14 +31,14 @@ class Acceso
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="dia_inicio", type="date")
+     * @ORM\Column(name="dia_inicio", type="datetime")
      */
     private $diaInicio;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="dia_fin", type="date")
+     * @ORM\Column(name="dia_fin", type="datetime")
      */
     private $diaFin;
 
@@ -136,5 +136,52 @@ class Acceso
     {
         return $this->diaFin;
     }
-}
 
+    /**
+     * Set persona
+     *
+     * @param \AppBundle\Entity\Personal $persona
+     *
+     * @return Acceso
+     */
+    public function setPersona(\AppBundle\Entity\Personal $persona = null)
+    {
+        $this->persona = $persona;
+
+        return $this;
+    }
+
+    /**
+     * Get persona
+     *
+     * @return \AppBundle\Entity\Personal
+     */
+    public function getPersona()
+    {
+        return $this->persona;
+    }
+
+    /**
+     * Set lugar
+     *
+     * @param \AppBundle\Entity\Area $lugar
+     *
+     * @return Acceso
+     */
+    public function setLugar(\AppBundle\Entity\Area $lugar = null)
+    {
+        $this->lugar = $lugar;
+
+        return $this;
+    }
+
+    /**
+     * Get lugar
+     *
+     * @return \AppBundle\Entity\Area
+     */
+    public function getLugar()
+    {
+        return $this->lugar;
+    }
+}

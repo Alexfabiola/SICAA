@@ -5,6 +5,8 @@ namespace AppBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 
 class PersonalType extends AbstractType
 {
@@ -13,7 +15,31 @@ class PersonalType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('ci')->add('nombres')->add('apellidos')->add('departamento')->add('tipo')->add('correo')->add('genero')->add('direccion')->add('telefono')->add('fechaNacimiento');
+        $builder
+        ->add('ci')
+        ->add('nombres')
+        ->add('apellidos')
+        ->add('departamento', ChoiceType::class, array('choices'  => array(
+                                                        'Química'=> 'quimica',
+                                                        'Matemáticas' => 'matematicas',
+                                                        'Computación'=> 'computacion',
+                                                        'Física' => 'fisica',
+                                                        'Biología'=> 'biologia',)))
+
+        ->add('tipo', ChoiceType::class, array('choices'  => array(
+                                                'Docente'=> 'docente',
+                                                'Estudiante'=>'estudiante',
+                                                'Administrativo' =>'administrativo',
+                                                'Obrero'=>'obrero',)))
+
+        ->add('correo', EmailType::class)
+        ->add('genero', ChoiceType::class, array('choices'  => array(
+                                                'Femenino'=> 'femenino',
+                                                'Masculino' => 'masculino',)))
+        
+        ->add('direccion')
+        ->add('telefono')
+        ->add('fechaNacimiento');
     }
     
     /**

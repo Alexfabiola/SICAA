@@ -7,9 +7,10 @@
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Descripcion</th>
-                <th>Ubicacion</th>
-                <th>Tipoarea</th>
+                <th>Nombre </th>
+                <th>Descripcion </th>
+                <th>Ubicacion </th>
+                <th>Tipo de área </th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -17,6 +18,7 @@
         {% for area in areas %}
             <tr>
                 <td><a href="{{ path('area_show', { 'id': area.id }) }}">{{ area.id }}</a></td>
+                <td>{{ area.nombre }}</td>
                 <td>{{ area.descripcion }}</td>
                 <td>{{ area.ubicacion }}</td>
                 <td>{{ area.tipoArea }}</td>
