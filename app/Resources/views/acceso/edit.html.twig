@@ -1,21 +1,52 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Acceso edit</h1>
+    
+<div class="col-md-9 col-lg-9 col-xs-9 col-sm-9">
+    <div class="content-box-large">
+        <div class="panel-heading">
+            <div class="panel-title"><h2>Edición</h2></div>
+            <a href="{{ path('acceso_index') }}"><button class="btn btn-default pull-right"><i class="glyphicon glyphicon-arrow-left"></i>  Volver a la lista</button></a>
+        </div>
+        {{ form_start(edit_form) }}
+            {{ form_errors(edit_form) }}
+            <div class="panel-body">
+                <div class="col-md-4 col-lg-4 col-xs-4 col-sm-4">
+                    {{ form_row(edit_form.estado) }}
+                    {{ form_row(edit_form.horaInicio) }}
+                    {{ form_row(edit_form.dias) }}
+                </div>
+                <div class="col-md-4 col-lg-4 col-xs-4 col-sm-4">
+                    {{ form_row(edit_form.vigenciaInicio) }}
+                    {{ form_row(edit_form.horaFin) }}
+                    {{ form_row(edit_form.persona) }}
+                </div>
+                <div class="col-md-4 col-lg-4 col-xs-4 col-sm-4">
+                    {{ form_row(edit_form.vigenciaFin) }}
+                    {{ form_row(edit_form.dias) }}
+                    {{ form_row(edit_form.lugar) }}
+                </div>
+                {#{{ form_widget(edit_form) }}#}
+                <div class="col-md-12 col-xs-12 col-lg-12 col-sm-12">
+                    <button class="btn btn-primary pull-right" type="submit" ><i class='glyphicon glyphicon-save'></i>&nbsp;Guardar </button>
+                    {{ form_end(edit_form) }}
+                </div>
+            </div>
+    </div>
+</div>
 
-    {{ form_start(edit_form) }}
-        {{ form_widget(edit_form) }}
-        <input type="submit" value="Edit" />
-    {{ form_end(edit_form) }}
 
-    <ul>
-        <li>
-            <a href="{{ path('acceso_index') }}">Back to the list</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
 {% endblock %}

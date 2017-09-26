@@ -1,0 +1,80 @@
+AdminBundle\Entity\User:
+    type: entity
+    table: fos_user
+    repositoryClass: AdminBundle\Repository\UserRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        name:
+            type: string
+            length: '50'
+            column: name
+        firstName:
+            type: string
+            length: '50'
+            column: firstName
+        displayName:
+            type: string
+            length: '100'
+            column: displayName
+        gender:
+            type: boolean
+            column: gender
+        mobilePhone:
+            type: string
+            length: '15'
+            nullable: true
+            column: mobilePhone
+        address:
+            type: string
+            length: 255
+            nullable: true
+            column: address
+        city:
+            type: string
+            length: 255
+            nullable: true
+            column: city
+        stateOrProvince:
+            type: string
+            length: 255
+            nullable: true
+            column: stateOrProvince
+        postalCode:
+            type: integer
+            nullable: true
+            column: postalCode
+        countryOrRegion:
+            type: string
+            nullable: true
+            length: 255
+            column: countryOrRegion
+        created:
+            type: datetime
+            column: created
+        updated:
+            type: datetime
+            column: updated
+        profilePhotoName:
+            type: string
+            nullable: true
+            length: 255
+            column: profilePhotoName
+        profilePhotoSize:
+            type: integer
+            nullable: true
+            column: profilePhotoSize
+#    oneToOne:
+#        profilePhoto:
+#            targetEntity: Photo
+#            joinColumn:
+#                name: photo_id
+#                referencedColumnName: id
+#                cascade: ["persist", "remove"]
+    lifecycleCallbacks:
+        postPersist: [ postCreated ]
+        postUpdate: [ postUpdated ]

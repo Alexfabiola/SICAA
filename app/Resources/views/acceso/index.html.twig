@@ -1,47 +1,104 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>accesos list</h1>
+    <div class="col-md-9 col-lg-9 col-xs-9 col-sm-9">
+        <div class="content-box-large">
+            <div class="panel-heading">
+                <div class="panel-title"><h2>Accesos</h2></div>
+                <a href="{{ path('acceso_new') }}"><button class="btn btn-success pull-right">Agregar Acceso</button></a>
+            </div>
+            <div class="panel-body">
+                <table id="accesos" cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered">
+                    <thead style="align:center;">
+                        <tr>
+                            <th>Estado</th>
+                            <th>Fecha Inicial</th>
+                            <th>Fecha Final</th>
+                            <th>Hora Inicial</th>
+                            <th>Hora Final</th>
+                            <th>Dias</th>
+                            <th>Persona</th>
+                            <th>Lugar</th>
+                            <th>Acción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for Acceso in Accesos %}
+                        <tr class="odd gradeX">
+                            <td>
+                                {% if Acceso.estado == "habilitado" %}
+                                <p class="alert-success"><i class="fa fa-check"></i>&nbsp;Habilitado</p>
+                                {% else %}
+                                <p class="alert-danger">&nbsp;Desabilitado</p>
+                                {% endif %}
+                            </td>
+                            <td>{{ Acceso.vigenciaInicio|date('d-m-Y') }}</td>
+                            <td>{{ Acceso.vigenciaFin|date('d-m-Y') }}</td>
+                            <td>{{ Acceso.horaInicio|date('H:i:s') }}</td>
+                            <td>{{ Acceso.horaFin|date('H:i:s') }}</td>
+                            <td><p>{% if Acceso.dias %}{{ Acceso.dias|join(', ') }}{% endif %}</p></td>
 
-    <table>
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Estado</th>
-                <th>Diainicio</th>
-                <th>Diafin</th>
-                <th>Persona</th>
-                <th>Lugar</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for Acceso in Accesos %}
-            <tr>
-                <td><a href="{{ path('acceso_show', { 'id': Acceso.id }) }}">{{ Acceso.id }}</a></td>
-                <td>{{ Acceso.estado }}</td>
-                <td>{% if Acceso.diaInicio %}{{ Acceso.diaInicio|date('Y-m-d') }}{% endif %}</td>
-                <td>{% if Acceso.diaFin %}{{ Acceso.diaFin|date('Y-m-d') }}{% endif %}</td>
-                <td>{{ Acceso.persona }}</td>
-                <td>{{ Acceso.lugar }}</td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('acceso_show', { 'id': Acceso.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('acceso_edit', { 'id': Acceso.id }) }}">edit</a>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <ul>
-        <li>
-            <a href="{{ path('acceso_new') }}">Create a new Acceso</a>
-        </li>
-    </ul>
+                            <td><a href="{{ path('personal_show', { 'id': Acceso.persona.id }) }}">{{ Acceso.persona }}</td>
+                            <td><a href="{{ path('area_show', { 'id': Acceso.lugar.id }) }}">{{ Acceso.lugar }}</td>
+                            <td>
+                                <a href="{{ path('acceso_show', { 'id': Acceso.id }) }}"><button class="btn btn-default"><i class="glyphicon glyphicon-eye-open"></i> Ver</button></a>
+                                <a href="{{ path('acceso_edit', { 'id': Acceso.id }) }}"><button class="btn btn-primary"><i class="glyphicon glyphicon-pencil"></i> Editar</button></a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 {% endblock %}
+    {% block stylesheets %}
+        {{ parent() }}
+        <link href="{{ asset('bundles/app/vendors/datatables/dataTables.bootstrap.css') }}" rel="stylesheet" media="screen">
+    {% endblock %}
+    {% block javascripts %}
+        <script src="{{ asset('bundles/app/jquery/2.1.4/jQuery-2.1.4.min.js') }}"></script>
+          <!-- Include all compiled plugins (below), or include individual files as needed -->
+          <script src="{{ asset('bundles/app/bootstrap/js/bootstrap.min.js') }}"></script> 
+
+        {#<script src="{{ asset('bundles/app/jquery/2.1.1/jquery.min.js') }}"></script>
+        <script src="{{ asset('bundles/app/jquery/jquery-ui.js')}}"></script>
+        <script src="{{ asset('bundles/app/bootstrap/js/bootstrap.min.js') }}"></script>#}
+
+        <script src="{{ asset('bundles/app/vendors/datatables/jquery.dataTables.min.js')}}"></script>
+        <script src="{{ asset('bundles/app/vendors/datatables/dataTables.bootstrap.js')}}"></script>
+        {#<script src="{{ asset('bundles/app/js/custom.js') }}"></script>#}
+        
+        
+    <script>
+    $(document).ready(function() {
+        $('#accesos').DataTable({
+            "language": {
+                "sProcessing":     "Procesando...",
+                "sLengthMenu":     "Mostrar _MENU_",
+                "sZeroRecords":    "No se encontraron resultados",
+                "sEmptyTable":     "Ningún dato disponible",
+                "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ accesos",
+                "sInfoEmpty":      "Mostrando del 0 al 0 de un total de 0 accesos",
+                "sInfoFiltered":   "(filtrado de un total de _MAX_ accesos)",
+                "sInfoPostFix":    "",
+                "sSearch":         "Buscar: ",
+                "sUrl":            "",
+                "sInfoThousands":  ",",
+                "sLoadingRecords": "Cargando...",
+                "oPaginate": {
+                    "sFirst":    "Primero",
+                    "sLast":     "Último",
+                    "sNext":     "Siguiente",
+                    "sPrevious": "Anterior"
+                },
+                "oAria": {
+                    "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                }
+            }
+        });
+    } );
+    </script>
+
+    {% endblock %}

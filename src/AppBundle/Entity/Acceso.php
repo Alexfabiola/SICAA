@@ -2,16 +2,26 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Acceso
  *
- * @ORM\Table(name="tiene_acceso")
+ * @ORM\Table(name="acceso")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\AccesoRepository")
  */
 class Acceso
 {
+    private static $DIAS = array(
+                1=>'Lunes',
+                2=>'Martes', 
+                3=>'Miercoles',
+                4=>'Jueves',
+                5=>'Viernes',
+                6=>'Sabado',
+                7=>'Domingo');
+
     /**
      * @var int
      *
@@ -29,18 +39,39 @@ class Acceso
     private $estado;
 
     /**
-     * @var \DateTime
+     * @var \Date
      *
-     * @ORM\Column(name="dia_inicio", type="datetime")
+     * @ORM\Column(name="vigencia_inicio", type="date")
      */
-    private $diaInicio;
+    private $vigenciaInicio;
 
     /**
-     * @var \DateTime
+     * @var \Date
      *
-     * @ORM\Column(name="dia_fin", type="datetime")
+     * @ORM\Column(name="vigencia_fin", type="date")
      */
-    private $diaFin;
+    private $vigenciaFin;
+
+    /**
+     * @var \Time
+     *
+     * @ORM\Column(name="hora_inicio", type="time")
+     */
+    private $horaInicio;
+
+    /**
+     * @var \Time
+     *
+     * @ORM\Column(name="hora_fin", type="time")
+     */
+    private $horaFin;
+
+    /**
+     * @var array
+     *
+     * @ORM\Column(name="dias", type="array")
+     */
+    private $dias;
 
     /**
      * @ORM\ManyToOne(targetEntity="Personal")
@@ -54,6 +85,10 @@ class Acceso
      */
     private $lugar;
 
+    public function __construct()
+    {
+       $this->dias = array();
+    }
 
     /**
      * Get id
@@ -89,55 +124,7 @@ class Acceso
         return $this->estado;
     }
 
-    /**
-     * Set diaInicio
-     *
-     * @param \DateTime $diaInicio
-     *
-     * @return Acceso
-     */
-    public function setDiaInicio($diaInicio)
-    {
-        $this->diaInicio = $diaInicio;
-
-        return $this;
-    }
-
-    /**
-     * Get diaInicio
-     *
-     * @return \DateTime
-     */
-    public function getDiaInicio()
-    {
-        return $this->diaInicio;
-    }
-
-    /**
-     * Set diaFin
-     *
-     * @param \DateTime $diaFin
-     *
-     * @return Acceso
-     */
-    public function setDiaFin($diaFin)
-    {
-        $this->diaFin = $diaFin;
-
-        return $this;
-    }
-
-    /**
-     * Get diaFin
-     *
-     * @return \DateTime
-     */
-    public function getDiaFin()
-    {
-        return $this->diaFin;
-    }
-
-    /**
+        /**
      * Set persona
      *
      * @param \AppBundle\Entity\Personal $persona
@@ -183,5 +170,137 @@ class Acceso
     public function getLugar()
     {
         return $this->lugar;
+    }
+
+    /**
+     * Set vigenciaInicio
+     *
+     * @param \DateTime $vigenciaInicio
+     *
+     * @return Acceso
+     */
+    public function setVigenciaInicio($vigenciaInicio)
+    {
+        $this->vigenciaInicio = $vigenciaInicio;
+
+        return $this;
+    }
+
+    /**
+     * Get vigenciaInicio
+     *
+     * @return \DateTime
+     */
+    public function getVigenciaInicio()
+    {
+        return $this->vigenciaInicio;
+    }
+
+    /**
+     * Set vigenciaFin
+     *
+     * @param \DateTime $vigenciaFin
+     *
+     * @return Acceso
+     */
+    public function setVigenciaFin($vigenciaFin)
+    {
+        $this->vigenciaFin = $vigenciaFin;
+
+        return $this;
+    }
+
+    /**
+     * Get vigenciaFin
+     *
+     * @return \DateTime
+     */
+    public function getVigenciaFin()
+    {
+        return $this->vigenciaFin;
+    }
+
+    /**
+     * Set horaInicio
+     *
+     * @param \DateTime $horaInicio
+     *
+     * @return Acceso
+     */
+    public function setHoraInicio($horaInicio)
+    {
+        $this->horaInicio = $horaInicio;
+
+        return $this;
+    }
+
+    /**
+     * Get horaInicio
+     *
+     * @return \DateTime
+     */
+    public function getHoraInicio()
+    {
+        return $this->horaInicio;
+    }
+
+    /**
+     * Set horaFin
+     *
+     * @param \DateTime $horaFin
+     *
+     * @return Acceso
+     */
+    public function setHoraFin($horaFin)
+    {
+        $this->horaFin = $horaFin;
+
+        return $this;
+    }
+
+    /**
+     * Get horaFin
+     *
+     * @return \DateTime
+     */
+    public function getHoraFin()
+    {
+        return $this->horaFin;
+    }
+
+    /**
+     * Get dias
+     *
+     * @return array
+     */
+    public function getDias()
+    {
+        return $this->dias;
+    }
+
+    /**
+     * Set dias
+     *
+     * @param array $array
+     *
+     * @return Acceso
+     */
+    public function setDias($dias)
+    {
+        $this->dias = $dias;
+
+        return $this;
+    }
+
+    public function esValido()
+    {
+        $fechaActual = new \DateTime();
+        $horaActual = $fechaActual->format('H:i:s');
+        if (($fechaActual >= $this->vigenciaInicio) && ($fechaActual <= $this->vigenciaFin)) {
+            if (($horaActual >= $this->horaInicio->format('H:i:s')) && ($horaActual <= $this->horaFin->format('H:i:s'))) {
+                return (in_array(self::$DIAS[date('N')] , $this->dias));
+            }
+        }
+        return(false);
     }
 }

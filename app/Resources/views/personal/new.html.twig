@@ -1,16 +1,50 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Personal creation</h1>
+   <div class="col-md-9 col-lg-9 col-xs-9 col-sm-9">
+        <div class="content-box-large">
+            <div class="panel-heading">
+                <div class="panel-title"><h2>Creación del Personal</h2></div>
+                <a href="{{ path('personal_index') }}"><button class="btn btn-default pull-right"><i class="glyphicon glyphicon-arrow-left"></i>  Volver a la lista</button></a>
+            </div>
+            {{ form_start(form) }}
+                {{ form_errors(form) }}
+                <div class="panel-body">
+                    <div class="col-md-4 col-lg-4 col-xs-4 col-sm-4">
+                        {{ form_row(form.ci) }}
+                        {{ form_row(form.nombres) }}
+                        {{ form_row(form.apellidos) }}
+                        {{ form_row(form.genero) }}
+                        {{ form_row(form.tipo) }}
+                    </div>
+                    <div class="col-md-2 col-lg-2 col-xs-2 col-sm-2"></div>
+                    <div class="col-md-4 col-lg-4 col-xs-4 col-sm-4">
+                        {{ form_row(form.departamento) }}
+                        {{ form_row(form.telefono) }}
+                        {{ form_row(form.correo) }}
+                        <div class="bfh-datepicker" data-format="d-m-Y" data-date="today">
+                            {{ form_row(form.fechaNacimiento) }}
+                        </div>
+                        {{ form_row(form.direccion) }}
+                    </div>
+                    {#{{ form_widget(form) }}#}
+                    <div class="col-md-12 col-xs-12 col-lg-12 col-sm-12">
+                        <button class="btn btn-primary pull-right" type="submit" ><i class='glyphicon glyphicon-save'></i>&nbsp;Guardar </button>
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+        </div>
+    </div>
+{% endblock %}
 
-    {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <input type="submit" value="Create" />
-    {{ form_end(form) }}
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('bundles/app/vendors/bootstrap-datetimepicker/datetimepicker.css') }}" rel="stylesheet">
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('bundles/app/vendors/bootstrap-datetimepicker/bootstrap-datetimepicker.js') }}"></script>
+    <script src="{{ asset('bundles/app/js/forms.js') }}"></script>
 
-    <ul>
-        <li>
-            <a href="{{ path('personal_index') }}">Back to the list</a>
-        </li>
-    </ul>
+
 {% endblock %}

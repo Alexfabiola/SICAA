@@ -5,7 +5,10 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Personal;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Entity\Acceso;
+use AppBundle\Entity\Check;
 
 /**
  * Personal controller.
@@ -66,9 +69,14 @@ class PersonalController extends Controller
     public function showAction(Personal $personal)
     {
         $deleteForm = $this->createDeleteForm($personal);
-
+        $em = $this->getDoctrine()->getManager();
+        $accesos = $em->getRepository('AppBundle:Acceso')->findBy(array(
+                'persona' => $personal));
+        $checks = $em->getRepository('AppBundle:Check')->findBy(array(
+                'personal' => $personal));
+        $checksByDay = $this->groupByDate($checks);
         return $this->render('personal/show.html.twig', array(
-            'personal' => $personal,
+            'personal' => $personal, 'accesos' => $accesos, 'checksByDay'=> $checksByDay,
             'delete_form' => $deleteForm->createView(),
         ));
     }
@@ -88,7 +96,7 @@ class PersonalController extends Controller
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('personal_edit', array('id' => $personal->getId()));
+            return $this->redirectToRoute('personal_show', array('id' => $personal->getId()));
         }
 
         return $this->render('personal/edit.html.twig', array(
@@ -132,5 +140,14 @@ class PersonalController extends Controller
             ->setMethod('DELETE')
             ->getForm()
         ;
+    }
+
+    private function groupByDate($checks)
+    {
+        $asistencias = array();
+        foreach ($checks as $check) {
+            $asistencias[$check->getFechaHora()->format('d/m/Y')][] = $check;
+        }
+        return $asistencias;
     }
 }

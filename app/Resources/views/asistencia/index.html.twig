@@ -1,47 +1,95 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Asistencias list</h1>
-
-    <table>
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Horaentrada</th>
-                <th>Horasalida</th>
-                <th>Fecha</th>
-                <th>Persona</th>
-                <th>Lugar</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for asistencia in asistencias %}
-            <tr>
-                <td><a href="{{ path('asistencia_show', { 'id': asistencia.id }) }}">{{ asistencia.id }}</a></td>
-                <td>{% if asistencia.horaEntrada %}{{ asistencia.horaEntrada|date('H:i:s') }}{% endif %}</td>
-                <td>{% if asistencia.horaSalida %}{{ asistencia.horaSalida|date('H:i:s') }}{% endif %}</td>
-                <td>{% if asistencia.fecha %}{{ asistencia.fecha|date('H:i:s') }}{% endif %}</td>
-                <td>{{ asistencia.personal }}</td>
-                <td>{{ asistencia.lugar }}</td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('asistencia_show', { 'id': asistencia.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('asistencia_edit', { 'id': asistencia.id }) }}">edit</a>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <ul>
-        <li>
-            <a href="{{ path('asistencia_new') }}">Create a new asistencia</a>
-        </li>
-    </ul>
+    <div class="col-md-10 col-lg-10 col-xs-10 col-sm-10">
+        <div class="content-box-large">
+            <div class="panel-heading">
+                <div class="panel-title"><h2> Lista de Asistencias </h2>
+                </div>
+            </div>
+            <div class="panel-body">
+                <table id="asistencia" cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Cédula</th>
+                            <th>Nombre</th>
+                            <th>Tipo de Personal</th>
+                            <th>Fecha</th>
+                            <th>Hora de Entrada</th>
+                            <th>Hora de Salida</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for checksByDay in checksByPersonal %}
+                            {% for checks in checksByDay %}
+                                <tr class="odd gradeX">
+                                    <td> {{checks[0].personal.ci }} </td>
+                                    <td> {{checks[0].personal }} </td>
+                                    <td> {{checks[0].personal.tipo }} </td>
+                                    <td> {{checks[0].fechaHora|date('d-m-Y') }} </td>
+                                    <td> {{checks[0].fechaHora|date('H:i:s') }} </td>
+                                    <td>
+                                    {% if (checks|length % 2 ) == 0 %}
+                                        {{ checks[checks|length - 1].fechaHora|date('H:i:s') }}
+                                    {% else %}{{'-'}}{% endif %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>   
 {% endblock %}
+{% block stylesheets %}
+        {{ parent() }}
+        <link href="{{ asset('bundles/app/vendors/datatables/dataTables.bootstrap.css') }}" rel="stylesheet" media="screen">
+    {% endblock %}
+    {% block javascripts %}
+        <script src="{{ asset('bundles/app/jquery/2.1.4/jQuery-2.1.4.min.js') }}"></script>
+          <!-- Include all compiled plugins (below), or include individual files as needed -->
+          <script src="{{ asset('bundles/app/bootstrap/js/bootstrap.min.js') }}"></script> 
+
+        {#<script src="{{ asset('bundles/app/jquery/2.1.1/jquery.min.js') }}"></script>
+        <script src="{{ asset('bundles/app/jquery/jquery-ui.js')}}"></script>
+        <script src="{{ asset('bundles/app/bootstrap/js/bootstrap.min.js') }}"></script>#}
+
+        <script src="{{ asset('bundles/app/vendors/datatables/jquery.dataTables.min.js')}}"></script>
+        <script src="{{ asset('bundles/app/vendors/datatables/dataTables.bootstrap.js')}}"></script>
+        {#<script src="{{ asset('bundles/app/js/custom.js') }}"></script>#}
+        
+        
+    <script>
+    $(document).ready(function() {
+        $('#asistencia').DataTable({
+            "language": {
+                "sProcessing":     "Procesando...",
+                "sLengthMenu":     "Mostrar _MENU_",
+                "sZeroRecords":    "No se encontraron resultados",
+                "sEmptyTable":     "Ningún dato disponible",
+                "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ asistencias",
+                "sInfoEmpty":      "Mostrando del 0 al 0 de un total de 0 asistencias",
+                "sInfoFiltered":   "(filtrado de un total de _MAX_ asistencias)",
+                "sInfoPostFix":    "",
+                "sSearch":         "Buscar: ",
+                "sUrl":            "",
+                "sInfoThousands":  ",",
+                "sLoadingRecords": "Cargando...",
+                "oPaginate": {
+                    "sFirst":    "Primero",
+                    "sLast":     "Último",
+                    "sNext":     "Siguiente",
+                    "sPrevious": "Anterior"
+                },
+                "oAria": {
+                    "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                }
+            }
+        });
+    } );
+    </script>
+
+    {% endblock %}
+

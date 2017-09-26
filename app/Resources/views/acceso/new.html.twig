@@ -1,16 +1,50 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Acceso creation</h1>
-
-    {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <input type="submit" value="Create" />
-    {{ form_end(form) }}
-
-    <ul>
-        <li>
-            <a href="{{ path('acceso_index') }}">Back to the list</a>
-        </li>
-    </ul>
+    <div class="col-md-9 col-lg-9 col-xs-9 col-sm-9">
+        <div class="content-box-large">
+            <div class="panel-heading">
+                <div class="panel-title"><h2>Creación de un acceso</h2></div>
+                <a href="{{ path('acceso_index') }}"><button class="btn btn-default pull-right"><i class="glyphicon glyphicon-arrow-left"></i>  Volver a la lista</button></a>
+            </div>
+            {{ form_start(form) }}
+                {{ form_errors(form) }}
+                <div class="panel-body">
+                    <div class="col-md-4 col-lg-4 col-xs-4 col-sm-4">
+                        {{ form_row(form.estado) }}
+                        {{ form_row(form.horaInicio) }}
+                        {{ form_row(form.dias) }}
+                    </div>
+                    <div class="col-md-4 col-lg-4 col-xs-4 col-sm-4">
+                        {{ form_row(form.vigenciaInicio) }}
+                        {{ form_row(form.horaFin) }}
+                        {{ form_row(form.persona) }}
+                    </div>
+                    <div class="col-md-4 col-lg-4 col-xs-4 col-sm-4">
+                        {{ form_row(form.vigenciaFin) }}
+                        {{ form_row(form.dias) }}
+                        {{ form_row(form.lugar) }}
+                    </div>
+                    {#{{ form_widget(form) }}#}
+                    <div class="col-md-12 col-xs-12 col-lg-12 col-sm-12">
+                        <button class="btn btn-primary pull-right" type="submit" ><i class='glyphicon glyphicon-save'></i>&nbsp;Guardar </button>
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+        </div>
+    </div>
+    {#<div class="col-md-10 col-lg-10 col-xs-10 col-sm-10">
+        <div class="content-box-large">
+            <div class="panel-heading">
+                <div class="panel-title"><h2>Creación de Acceso</h2></div>
+            </div>
+            <div class="panel-body"><h6>
+                {{ form_start(form) }}
+                    {{ form_widget(form) }}
+                    <input type="submit" value="Crear" />
+                {{ form_end(form) }}</h6>
+                <a style="float: right;" href="{{ path('acceso_index') }}"><button class="btn btn-default"><i class="glyphicon glyphicon-arrow-left"></i>  Volver a la lista</button></a>
+            </div>
+        </div>
+    </div>#}
 {% endblock %}

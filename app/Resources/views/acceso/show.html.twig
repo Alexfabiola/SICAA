@@ -1,48 +1,45 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Acceso</h1>
-
-    <table>
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ Acceso.id }}</td>
-            </tr>
-            <tr>
-                <th>Estado</th>
-                <td>{{ Acceso.estado }}</td>
-            </tr>
-            <tr>
-                <th>Diainicio</th>
-                <td>{% if Acceso.diaInicio %}{{ Acceso.diaInicio|date('Y-m-d') }}{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Diafin</th>
-                <td>{% if Acceso.diaFin %}{{ Acceso.diaFin|date('Y-m-d') }}{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Persona</th>
-                <td>{{ Acceso.persona }}</td>
-            </tr>
-             <tr>
-                <th>Lugar</th>
-                <td>{{ Acceso.lugar }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <ul>
-        <li>
-            <a href="{{ path('acceso_index') }}">Back to the list</a>
-        </li>
-        <li>
-            <a href="{{ path('acceso_edit', { 'id': Acceso.id }) }}">Edit</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
+    <div class="col-md-10 col-xs-10 col-sm-10 col-lg-10">
+        <div class="content-box-large">
+            <div class="panel-heading">
+                <div class="panel-title"> <h2>Detalles</h2></div>
+                <a style="float: right;" href="{{ path('acceso_index') }}"><button class="btn btn-default"><i class="glyphicon glyphicon-arrow-left"></i>  Volver a la lista</button></a>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <h5>
+                    <div class="col-md-5 col-lg-5 col-xs-5 col-sm-5">
+                        <div class="col-md-6 col-lg-6 col-xs-6 col-sm-6"><strong>Estado</strong>
+                        </div>
+                        <div class="col-md-6 col-lg-6 col-xs-6 col-sm-6"><p>{{ Acceso.estado }}</p></div>
+                        <div class="col-md-6 col-lg-6 col-xs-6 col-sm-6"><strong> Dias de Acceso </strong></div>
+                        <div class="col-md-6 col-lg-6 col-xs-6 col-sm-6"><p>{% if Acceso.dias %}{{ Acceso.dias|join(', ') }}{% endif %}</p></div>
+                        <div class="col-md-6 col-lg-6 col-xs-6 col-sm-6"><strong> Fecha Inicial</strong></div>
+                        <div class="col-md-6 col-lg-6 col-xs-6 col-sm-6"><p>{% if Acceso.vigenciaInicio %}{{ Acceso.vigenciaInicio|date('d-m-Y') }}{% endif %}</p></div>
+                        <div class="col-md-6 col-lg-6 col-xs-6 col-sm-6"><strong> Fecha Final </strong></div>
+                        <div class="col-md-6 col-lg-6 col-xs-6 col-sm-6"><p>{% if Acceso.vigenciaFin %}{{ Acceso.vigenciaFin|date('d-m-Y') }}{% endif %}</p></div>
+                    </div>
+                    <div class="col-md-5 col-lg-5 col-xs-5 col-sm-5">
+                        <div class="col-md-6 col-lg-6 col-xs-6 col-sm-6"><strong> Hora Inicial </strong></div>
+                        <div class="col-md-6 col-lg-6 col-xs-6 col-sm-6"><p>{{ Acceso.horaInicio|date('H:i:s') }}</p></div>
+                        <div class="col-md-6 col-lg-6 col-xs-6 col-sm-6"><strong> Hora Final</strong></div>
+                        <div class="col-md-6 col-lg-6 col-xs-6 col-sm-6"><p>{{ Acceso.horaFin|date('H:i:s') }}</p></div>
+                        <div class="col-md-6 col-lg-6 col-xs-6 col-sm-6"><strong> Persona</strong></div>
+                        <div class="col-md-6 col-lg-6 col-xs-6 col-sm-6"><p>{{ Acceso.persona }}</p></div>
+                        <div class="col-md-6 col-lg-6 col-xs-6 col-sm-6"><strong> Lugar</strong></div>
+                        <div class="col-md-6 col-lg-6 col-xs-6 col-sm-6"><p>{{ Acceso.lugar }}</p></div>
+                    </div>
+                </h5>
+                </div>
+                <div class="col-md-12 col-lg-12 col-xs-12 col-sm-12">
+                    <a href="{{ path('acceso_edit', { 'id': Acceso.id }) }}"><button class="btn btn-primary pull-right"><i class="glyphicon glyphicon-pencil"></i> Editar</button></a>
+                    {{ form_start(delete_form) }}
+                    <button class="btn btn-danger pull-right" type="submit" ><i class='glyphicon glyphicon-remove'></i>&nbsp;Eliminar </button>
+                    {{ form_end(delete_form) }}
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

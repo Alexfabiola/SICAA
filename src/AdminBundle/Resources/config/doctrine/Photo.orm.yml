@@ -1,0 +1,30 @@
+AdminBundle\Entity\Photo:
+    type: entity
+    properties:
+        file:
+            File:
+                maxSize: 4096k
+                mimeTypes: [image/png]
+                mimeTypesMessage: Please upload a valid PNG
+    table: null
+    repositoryClass: AdminBundle\Repository\PhotoRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        path:
+            type: string
+            length: 255
+        name:
+            type: string
+            length: 255
+    lifecycleCallbacks:
+        prePersist: [ preUpload ]
+        postPersist: [ upload ]
+        preUpdate: [ preUpload ]
+        postUpdate: [ upload ]
+        postRemove: [ removeUpload ]
+

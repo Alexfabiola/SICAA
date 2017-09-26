@@ -1,44 +1,94 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Area</h1>
-
-    <table>
-        <tbody>
-            <tr>
-                <th>Id </th>
-                <td>{{ area.id }}</td>
-            </tr>
-           <tr>
-                <th>Nombre </th>
-                <td>{{ area.nombre }}</td>
-            </tr>
-            <tr>
-                <th>Descripcion </th>
-                <td>{{ area.descripcion }}</td>
-            </tr>
-            <tr>
-                <th>Ubicacion </th>
-                <td>{{ area.ubicacion }}</td>
-            </tr>
-            <tr>
-                <th>Tipo de área </th>
-                <td>{{ area.tipoArea }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <ul>
-        <li>
-            <a href="{{ path('area_index') }}">Back to the list</a>
-        </li>
-        <li>
-            <a href="{{ path('area_edit', { 'id': area.id }) }}">Edit</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
+     <div class="col-md-9 col-xs-9 col-sm-9 col-lg-9">
+        <div class="content-box-large">
+            <div class="panel-heading">
+                <div class="panel-title"><h2>Detalles</h2></div>
+                <a href="{{ path('area_index') }}"><button class="btn btn-default pull-right"><i class="glyphicon glyphicon-arrow-left"></i>  Volver a la lista</button></a>
+            </div>
+            <div class="panel-body">
+                <div id="rootwizard">
+                    <div class="navbar">
+                        <div class="navbar-inner">
+                            <div class="container">
+                                <ul class="nav nav-pills" style="font-size:14px;">
+                                    <li class="active"><a href="#tab1" data-toggle="tab">Información del Área</a></li>
+                                    <li><a href="#tab2" data-toggle="tab">Accesos</a></li>
+                                    <li><a href="#tab3" data-toggle="tab">Checks</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="tab1">
+                            <div class="col-md-8 col-lg-8 col-xs-8 col-sm-8"><h5>
+                                <div class="col-md-3 col-lg-3 col-xs-3 col-sm-3"><strong>Nombre</strong>
+                                </div>
+                                <div class="col-md-3 col-lg-3 col-xs-3 col-sm-3"><p>{{ area.nombre }}</p></div>
+                                <div class="col-md-3 col-lg-3 col-xs-3 col-sm-3"><strong> Descripción </strong></div>
+                                <div class="col-md-3 col-lg-3 col-xs-3 col-sm-3"><p>{{ area.descripcion }}</p></div>
+                                <div class="col-md-3 col-lg-3 col-xs-3 col-sm-3"><strong> Ubicación</strong></div>
+                                <div class="col-md-3 col-lg-3 col-xs-3 col-sm-3"><p>{{ area.ubicacion }}</p></div>
+                                <div class="col-md-3 col-lg-3 col-xs-3 col-sm-3"><strong> Tipo de Área</strong></div>
+                                <div class="col-md-3 col-lg-3 col-xs-3 col-sm-3"><p>{{ area.tipoArea }}</p></div>
+                            </div>
+                            <div class="col-md-12 col-xs-12 col-lg-12 col-sm-12">
+                                <a style="float: right;" href="{{ path('area_edit', { 'id': area.id }) }}"><button class="btn btn-primary"><i class="glyphicon glyphicon-pencil"></i> Editar</button></a>
+                                {{ form_start(delete_form) }}
+                                <a style="float: right;"><button class="btn btn-danger" type="submit" ><i class='glyphicon glyphicon-remove'></i>&nbsp;Eliminar </button></a>
+                                {{ form_end(delete_form) }}
+                            </div>
+                        </div>
+                        <div class="tab-pane table-responsive" id="tab2"><h5>
+                           <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Persona</th>
+                                        <th>Fecha Inicial</th>
+                                        <th>Fecha Final</th>
+                                        <th>Hora Inicial</th>
+                                        <th>Hora Final</th>
+                                        <th>Dias</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                {% for Acceso in accesos %}
+                                    <tr>
+                                        <td>{{ Acceso.persona }}</td>
+                                        <td>{{ Acceso.vigenciaInicio|date('d-m-Y') }}</td>
+                                        <td>{{ Acceso.vigenciaFin|date('d-m-Y') }}</td>
+                                        <td>{{ Acceso.horaInicio|date('H:i:s') }}</td>
+                                        <td>{{ Acceso.horaFin|date('H:i:s') }}</td>
+                                        <td>{% if Acceso.dias %}{{ Acceso.dias|join(', ') }}{% endif %}</td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table></h5>
+                        </div>
+                        <div class="tab-pane table-responsive" id="tab3"><h5>
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Fecha</th>
+                                        <th>Hora</th>
+                                        <th>Persona</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for check in checks %}
+                                        <tr>
+                                            <td>{{ check.fechaHora|date('d-m-Y') }}</td>
+                                            <td>{{ check.fechaHora|date('H:i:s') }}</td>
+                                            <td>{{ check.personal }}</td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table></h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>        
 {% endblock %}

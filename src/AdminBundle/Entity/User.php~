@@ -1,0 +1,345 @@
+<?php
+
+namespace AdminBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use FOS\UserBundle\Model\User as BaseUser;
+use AdminBundle\Entity\Photo;
+
+/**
+ * User
+ */
+class User extends BaseUser
+{
+    /**
+     * @var int
+     */
+    protected $id;
+
+    /**
+     * @var string
+     */
+    private $name;
+
+    /**
+     * @var string
+     */
+    private $firstName;
+
+    /**
+     * @var string
+     */
+    private $displayName;
+    
+    /**
+     * @var boolean
+     */
+    private $gender;
+
+    /**
+     * @var string
+     */
+    private $mobilePhone;
+
+    /**
+     * @var string
+     */
+    private $address;
+
+    /**
+     * @var string
+     */
+    private $city;
+
+    /**
+     * @var string
+     */
+    private $stateOrProvince;
+
+    /**
+     * @var int
+     */
+    private $postalCode;
+
+    /**
+     * @var string
+     */
+    private $countryOrRegion;
+
+    /**
+     * @var \ArmandoProject\AdminBundle\Entity\Photo $profilePhoto
+     */
+    private $profilePhoto;
+
+    /**
+     * @var datetime $created
+     *
+     * @ORM\Column(type="datetime")
+     */
+    private $created;
+
+
+    /**
+     * @var datetime $updated
+     *
+     * @ORM\Column(type="datetime")
+     */
+    private $updated;
+
+
+    public function __construct()
+    {
+        parent::__construct();
+        // your own logic
+        $this->profilePhoto = new Photo();
+        $this->created = new \DateTime();
+        $this->updated = new \DateTime();
+    }
+
+    /**
+     * @ORM\PostPersist()
+     */
+    public function postCreated()
+    {
+        $this->created = new \DateTime();
+        $this->updated = new \DateTime();
+    }
+    /**
+     * @ORM\PostUpdate()
+     */
+    public function postUpdated()
+    {
+        $this->updated = new \DateTime();
+    }
+
+    /**
+     * Get id
+     *
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     *
+     * @return User
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->$name;
+    }
+
+    /**
+     * Set firstName
+     *
+     * @param string $firstName
+     *
+     * @return User
+     */
+    public function setFirstName($firstName)
+    {
+        $this->firstName = $firstName;
+
+        return $this;
+    }
+
+    /**
+     * Get firstName
+     *
+     * @return string
+     */
+    public function getFirstName()
+    {
+        return $this->firstName;
+    }
+
+    /**
+     * Set displayName
+     *
+     * @param string $displayName
+     *
+     * @return User
+     */
+    public function setDisplayName($displayName)
+    {
+        $this->displayName = $displayName;
+
+        return $this;
+    }
+
+    /**
+     * Get displayName
+     *
+     * @return string
+     */
+    public function getDisplayName()
+    {
+        return $this->displayName;
+    }
+
+    /**
+     * Set mobilePhone
+     *
+     * @param string $mobilePhone
+     *
+     * @return User
+     */
+    public function setMobilePhone($mobilePhone)
+    {
+        $this->mobilePhone = $mobilePhone;
+
+        return $this;
+    }
+
+    /**
+     * Get mobilePhone
+     *
+     * @return string
+     */
+    public function getMobilePhone()
+    {
+        return $this->mobilePhone;
+    }
+
+    /**
+     * Set address
+     *
+     * @param string $address
+     *
+     * @return User
+     */
+    public function setAddress($address)
+    {
+        $this->address = $address;
+
+        return $this;
+    }
+
+    /**
+     * Get address
+     *
+     * @return string
+     */
+    public function getAddress()
+    {
+        return $this->address;
+    }
+
+    /**
+     * Set city
+     *
+     * @param string $city
+     *
+     * @return User
+     */
+    public function setCity($city)
+    {
+        $this->city = $city;
+
+        return $this;
+    }
+
+    /**
+     * Get city
+     *
+     * @return string
+     */
+    public function getCity()
+    {
+        return $this->city;
+    }
+
+    /**
+     * Set stateOrProvince
+     *
+     * @param string $stateOrProvince
+     *
+     * @return User
+     */
+    public function setStateOrProvince($stateOrProvince)
+    {
+        $this->stateOrProvince = $stateOrProvince;
+
+        return $this;
+    }
+
+    /**
+     * Get stateOrProvince
+     *
+     * @return string
+     */
+    public function getStateOrProvince()
+    {
+        return $this->stateOrProvince;
+    }
+
+    /**
+     * Set postalCode
+     *
+     * @param integer $postalCode
+     *
+     * @return User
+     */
+    public function setPostalCode($postalCode)
+    {
+        $this->postalCode = $postalCode;
+
+        return $this;
+    }
+
+    /**
+     * Get postalCode
+     *
+     * @return int
+     */
+    public function getPostalCode()
+    {
+        return $this->postalCode;
+    }
+
+    /**
+     * Set countryOrRegion
+     *
+     * @param string $countryOrRegion
+     *
+     * @return User
+     */
+    public function setCountryOrRegion($countryOrRegion)
+    {
+        $this->countryOrRegion = $countryOrRegion;
+
+        return $this;
+    }
+
+    /**
+     * Get countryOrRegion
+     *
+     * @return string
+     */
+    public function getCountryOrRegion()
+    {
+        return $this->countryOrRegion;
+    }
+
+    public function __toString() {
+        return $this->displayName;
+    }
+}
+

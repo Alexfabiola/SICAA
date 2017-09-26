@@ -1,68 +1,280 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Personal</h1>
-
-    <table>
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ personal.id }}</td>
-            </tr>
-            <tr>
-                <th>Ci</th>
-                <td>{{ personal.ci }}</td>
-            </tr>
-            <tr>
-                <th>Nombres</th>
-                <td>{{ personal.nombres }}</td>
-            </tr>
-            <tr>
-                <th>Apellidos</th>
-                <td>{{ personal.apellidos }}</td>
-            </tr>
-            <tr>
-                <th>Departamento</th>
-                <td>{{ personal.departamento }}</td>
-            </tr>
-            <tr>
-                <th>Tipo</th>
-                <td>{{ personal.tipo }}</td>
-            </tr>
-            <tr>
-                <th>Correo</th>
-                <td>{{ personal.correo }}</td>
-            </tr>
-            <tr>
-                <th>Genero</th>
-                <td>{{ personal.genero }}</td>
-            </tr>
-            <tr>
-                <th>Direccion</th>
-                <td>{{ personal.direccion }}</td>
-            </tr>
-            <tr>
-                <th>Telefono</th>
-                <td>{{ personal.telefono }}</td>
-            </tr>
-            <tr>
-                <th>Fechanacimiento</th>
-                <td>{% if personal.fechaNacimiento %}{{ personal.fechaNacimiento|date('Y-m-d') }}{% endif %}</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <ul>
-        <li>
-            <a href="{{ path('personal_index') }}">Back to the list</a>
-        </li>
-        <li>
-            <a href="{{ path('personal_edit', { 'id': personal.id }) }}">Edit</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
+    <div class="col-md-9 col-xs-9 col-sm-9 col-lg-9">
+        <div class="content-box-large">
+        <div class="panel-heading">
+            <div class="panel-title"><h2>Detalles</h2></div>
+            <a href="{{ path('personal_index') }}"><button class="btn btn-default pull-right"><i class="glyphicon glyphicon-arrow-left"></i>  Volver a la lista</button></a>
+        </div>
+        <div class="panel-body">
+            <div id="rootwizard">
+                <div class="navbar">
+                    <div class="navbar-inner">
+                        <div class="container">
+                            <ul class="nav nav-pills" style="font-size:14px;">
+                                <li class="active"><a href="#tab1" data-toggle="tab">Información Personal</a></li>
+                                <li><a href="#tab2" data-toggle="tab">Accesos Permitidos</a></li>
+                                <li><a href="#tab3" data-toggle="tab">Chequeos</a></li>
+                                <li><a href="#tab4" data-toggle="tab">Asistencia</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="tab1">
+                        <div class="col-md-5 col-lg-5 col-xs-5 col-sm-5"><h5>
+                            <div class="col-md-6 col-lg-6 col-xs-6 col-sm-6"><strong>Cédula</strong>
+                            </div>
+                            <div class="col-md-6 col-lg-6 col-xs-6 col-sm-6"><p>{{ personal.ci }}</p></div>
+                            <div class="col-md-6 col-lg-6 col-xs-6 col-sm-6"><strong> Nombres </strong></div>
+                            <div class="col-md-6 col-lg-6 col-xs-6 col-sm-6"><p>{{ personal.nombres }}</p></div>
+                            <div class="col-md-6 col-lg-6 col-xs-6 col-sm-6"><strong> Apellidos</strong></div>
+                            <div class="col-md-6 col-lg-6 col-xs-6 col-sm-6"><p>{{ personal.apellidos }}</p></div>
+                            <div class="col-md-6 col-lg-6 col-xs-6 col-sm-6"><strong> Departamento</strong></div>
+                            <div class="col-md-6 col-lg-6 col-xs-6 col-sm-6"><p>{{ personal.departamento }}</p></div>
+                            <div class="col-md-6 col-lg-6 col-xs-6 col-sm-6"><strong>Tipo de Personal</strong></div>
+                            <div class="col-md-6 col-lg-6 col-xs-6 col-sm-6"><p>{{ personal.tipo }}</p></div></h5>
+                        </div>
+                        <div class="col-md-5 col-lg-5 col-xs-5 col-sm-5"><h5>
+                            <div class="col-md-6 col-lg-6 col-xs-6 col-sm-6"><strong>Correo</strong>
+                            </div>
+                            <div class="col-md-6 col-lg-6 col-xs-6 col-sm-6"><p>{{ personal.correo }}</p></div>
+                            <div class="col-md-6 col-lg-6 col-xs-6 col-sm-6"><strong>Género</strong></div>
+                            <div class="col-md-6 col-lg-6 col-xs-6 col-sm-6"><p>{{ personal.genero }}</p></div>
+                            <div class="col-md-6 col-lg-6 col-xs-6 col-sm-6"><strong>Dirección</strong></div>
+                            <div class="col-md-6 col-lg-6 col-xs-6 col-sm-6"><p>{{ personal.direccion }}</p></div>
+                            <div class="col-md-6 col-lg-6 col-xs-6 col-sm-6"><strong> Teléfono</strong></div>
+                            <div class="col-md-6 col-lg-6 col-xs-6 col-sm-6"><p>{{ personal.telefono }}</p></div>
+                            <div class="col-md-6 col-lg-6 col-xs-6 col-sm-6"><strong>Fecha de Nacimiento</strong></div>
+                            <div class="col-md-6 col-lg-6 col-xs-6 col-sm-6"><p>{% if personal.fechaNacimiento %}{{ personal.fechaNacimiento|date('d-m-Y') }}{% endif %}</p></div></h5>
+                        </div>
+                        <div class="col-md-12 col-xs-12 col-lg-12 col-sm-12">
+                            <a style="float: right;" href="{{ path('personal_edit', { 'id': personal.id }) }}"><button class="btn btn-primary"><i class="glyphicon glyphicon-pencil"></i> Editar</button></a>
+                            {{ form_start(delete_form) }}
+                            <a style="float: right;"><button class="btn btn-danger" type="submit" ><i class='glyphicon glyphicon-remove'></i>&nbsp;Eliminar </button></a>
+                            {{ form_end(delete_form) }}
+                        </div>
+                    </div>
+                    <div class="tab-pane table-responsive" id="tab2"><h5>
+                       <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Estado</th>
+                                    <th>Fecha Inicial</th>
+                                    <th>Fecha Final</th>
+                                    <th>Hora Inicial</th>
+                                    <th>Hora Final</th>
+                                    <th>Dias</th>
+                                    <th>Lugar</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {% for Acceso in accesos %}
+                                <tr class="odd gradeX">
+                                    <td>{{ Acceso.estado }}</td>
+                                    <td>{{ Acceso.vigenciaInicio|date('d-m-Y') }}</td>
+                                    <td>{{ Acceso.vigenciaFin|date('d-m-Y') }}</td>
+                                    <td>{{ Acceso.horaInicio|date('H:i') }}</td>
+                                    <td>{{ Acceso.horaFin|date('H:i') }}</td>
+                                    <td>{% if Acceso.dias %}{{ Acceso.dias|join(', ') }}{% endif %}</td>
+                                    <td>{{ Acceso.lugar }}</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table></h5>
+                    </div>
+                    <div class="tab-pane table responsive" id="tab3">
+                        <table id="checks" class="table">
+                            <thead>
+                                <tr>
+                                    <th>Fecha</th>
+                                    <th>Hora</th>
+                                    <th>Lugar</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for checks in checksByDay %}
+                                    {% for check in checks %}
+                                        <tr>
+                                            <td>{{ check.fechaHora|date('d-m-Y') }}</td>
+                                            <td>{{ check.fechaHora|date('H:i:s') }}</td>
+                                            <td>{{ check.lugar }}</td>
+                                        </tr>
+                                    {% endfor %}
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        {% if checksByDay[ "now"|date("d/m/Y")] is defined and (checksByDay[ "now"|date("d/m/Y")]|length % 2 ) == 1 %}
+                            <h4>La persona aún sigue dentro de la institución </h4>
+                        {% else %}    
+                            <h4>La persona está fuera de la institución </h4>
+                        {% endif %}
+                    </div>
+                    <div class="tab-pane table-responsive" id="tab4">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th> Fecha </th>
+                                    <th> Hora Entrada </th>
+                                    <th> Hora Salida </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for checks in checksByDay %}
+                                    <tr>
+                                        <td> {{checks[0].fechaHora|date('d-m-Y') }} </td>
+                                        <td> {{checks[0].fechaHora|date('H:i:s') }} </td>
+                                        <td>
+                                        {% if (checks|length % 2 ) == 0 %}
+                                            {{ checks[checks|length - 1].fechaHora|date('H:i:s') }}
+                                        {% else %}{{'-'}}{% endif %}
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table> 
+                    </div>
+                </div>  
+            </div>
+        </div>
+    </div>
+</div>
+    {#<div class="col-md-10">
+        <div class="col-md-3">
+            <h2>Información Personal</h2>
+            <table>
+                <tbody>
+                    <tr>
+                        <th>Id</th>
+                        <td>{{ personal.id }}</td>
+                    </tr>
+                    <tr>
+                        <th>Ci</th>
+                        <td>{{ personal.ci }}</td>
+                    </tr>
+                    <tr>
+                        <th>Nombres</th>
+                        <td>{{ personal.nombres }}</td>
+                    </tr>
+                    <tr>
+                        <th>Apellidos</th>
+                        <td>{{ personal.apellidos }}</td>
+                    </tr>
+                    <tr>
+                        <th>Departamento</th>
+                        <td>{{ personal.departamento }}</td>
+                    </tr>
+                    <tr>
+                        <th>Tipo</th>
+                        <td>{{ personal.tipo }}</td>
+                    </tr>
+                    <tr>
+                        <th>Correo</th>
+                        <td>{{ personal.correo }}</td>
+                    </tr>
+                    <tr>
+                        <th>Genero</th>
+                        <td>{{ personal.genero }}</td>
+                    </tr>
+                    <tr>
+                        <th>Direccion</th>
+                        <td>{{ personal.direccion }}</td>
+                    </tr>
+                    <tr>
+                        <th>Telefono</th>
+                        <td>{{ personal.telefono }}</td>
+                    </tr>
+                    <tr>
+                        <th>Fechanacimiento</th>
+                        <td>{% if personal.fechaNacimiento %}{{ personal.fechaNacimiento|date('d-m-Y') }}{% endif %}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-5">
+            <h2> Accesos Permitidos </h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Estado</th>
+                        <th>Vigencia Inicio</th>
+                        <th>Vigencia Fin</th>
+                        <th>Hora Inicio</th>
+                        <th>Hora Fin</th>
+                        <th>Dias</th>
+                        <th>Lugar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for Acceso in accesos %}
+                    <tr>
+                        <td><a href="{{ path('acceso_show', { 'id': Acceso.id }) }}">{{ Acceso.id }}</a></td>
+                        <td>{{ Acceso.estado }}</td>
+                        <td>{{ Acceso.vigenciaInicio|date('d-m-Y') }}</td>
+                        <td>{{ Acceso.vigenciaFin|date('d-m-Y') }}</td>
+                        <td>{{ Acceso.horaInicio|date('H:i') }}</td>
+                        <td>{{ Acceso.horaFin|date('H:i') }}</td>
+                        <td>{% if Acceso.dias %}{{ Acceso.dias|join(', ') }}{% endif %}</td>
+                        <td>{{ Acceso.lugar }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>        
+        <div class="col-md-4">
+            <h2> Chequeos </h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Fecha</th>
+                        <th>Hora</th>
+                        <th>Lugar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for checks in checksByDay %}
+                        {% for check in checks %}
+                            <tr>
+                                <td>{{ check.fechaHora|date('d-m-Y') }}</td>
+                                <td>{{ check.fechaHora|date('H:i:s') }}</td>
+                                <td>{{ check.lugar }}</td>
+                            </tr>
+                        {% endfor %}
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% if checksByDay[ "now"|date("d/m/Y")] is defined and (checksByDay[ "now"|date("d/m/Y")]|length % 2 ) == 1 %}
+                <h4>La persona aún sigue dentro de la institución </h4>
+            {% else %}    
+                <h4>La persona está fuera de la institución </h4>
+            {% endif %}
+        </div>
+    </div><br><br>
+    <div class="col-md-12">
+        <h2> Asistencia </h2>
+        <table>
+            <thead>
+                <tr>
+                    <th> Fecha </th>
+                    <th> Hora Entrada </th>
+                    <th> Hora Salida </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for checks in checksByDay %}
+                    <tr>
+                        <td> {{checks[0].fechaHora|date('d-m-Y') }} </td>
+                        <td> {{checks[0].fechaHora|date('H:i:s') }} </td>
+                        <td>
+                        {% if (checks|length % 2 ) == 0 %}
+                            {{ checks[checks|length - 1].fechaHora|date('H:i:s') }}
+                        {% else %}{{'-'}}{% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>#}
 {% endblock %}

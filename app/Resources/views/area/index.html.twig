@@ -1,45 +1,92 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Areas list</h1>
+    <div class="col-md-9 col-lg-9 col-xs-9 col-sm-9">
+        <div class="content-box-large">
+            <div class="panel-heading">
+                <div class="panel-title"><h2>Lista de Áreas</h2></div>
+                <a style="float: right;"href="{{ path('area_new') }}"><button class="btn btn-success">Agregar Área</button></a>
 
-    <table>
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Nombre </th>
-                <th>Descripcion </th>
-                <th>Ubicacion </th>
-                <th>Tipo de área </th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for area in areas %}
-            <tr>
-                <td><a href="{{ path('area_show', { 'id': area.id }) }}">{{ area.id }}</a></td>
-                <td>{{ area.nombre }}</td>
-                <td>{{ area.descripcion }}</td>
-                <td>{{ area.ubicacion }}</td>
-                <td>{{ area.tipoArea }}</td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('area_show', { 'id': area.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('area_edit', { 'id': area.id }) }}">edit</a>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <ul>
-        <li>
-            <a href="{{ path('area_new') }}">Create a new area</a>
-        </li>
-    </ul>
+            </div>
+            <div class="panel-body">
+                <table id="areas" cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Num</th>
+                            <th>Nombre </th>
+                            <th>Descripción </th>
+                            <th>Ubicación </th>
+                            <th>Tipo de área </th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for area in areas %}
+                            <tr class="odd gradeX">
+                                <td><a href="{{ path('area_show', { 'id': area.id }) }}">{{ area.id }}</a></td>
+                                <td>{{ area.nombre }}</td>
+                                <td>{{ area.descripcion }}</td>
+                                <td>{{ area.ubicacion }}</td>
+                                <td>{{ area.tipoArea }}</td>
+                                <td>
+                                    <a href="{{ path('area_show', { 'id': area.id }) }}"><button class="btn btn-default"><i class="glyphicon glyphicon-eye-open"></i> Ver</button></a>
+                                    <a href="{{ path('area_edit', { 'id': area.id }) }}"><button class="btn btn-primary"><i class="glyphicon glyphicon-pencil"></i> Editar</button></a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 {% endblock %}
+ {% block stylesheets %}
+        {{ parent() }}
+        <link href="{{ asset('bundles/app/vendors/datatables/dataTables.bootstrap.css') }}" rel="stylesheet" media="screen">
+    {% endblock %}
+    {% block javascripts %}
+        <script src="{{ asset('bundles/app/jquery/2.1.4/jQuery-2.1.4.min.js') }}"></script>
+          <!-- Include all compiled plugins (below), or include individual files as needed -->
+          <script src="{{ asset('bundles/app/bootstrap/js/bootstrap.min.js') }}"></script> 
+
+        {#<script src="{{ asset('bundles/app/jquery/2.1.1/jquery.min.js') }}"></script>
+        <script src="{{ asset('bundles/app/jquery/jquery-ui.js')}}"></script>
+        <script src="{{ asset('bundles/app/bootstrap/js/bootstrap.min.js') }}"></script>#}
+
+        <script src="{{ asset('bundles/app/vendors/datatables/jquery.dataTables.min.js')}}"></script>
+        <script src="{{ asset('bundles/app/vendors/datatables/dataTables.bootstrap.js')}}"></script>
+        {#<script src="{{ asset('bundles/app/js/custom.js') }}"></script>#}
+        
+        
+    <script>
+    $(document).ready(function() {
+        $('#areas').DataTable({
+            "language": {
+                "sProcessing":     "Procesando...",
+                "sLengthMenu":     "Mostrar _MENU_",
+                "sZeroRecords":    "No se encontraron resultados",
+                "sEmptyTable":     "Ningún dato disponible",
+                "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ áreas",
+                "sInfoEmpty":      "Mostrando del 0 al 0 de un total de 0 áreas",
+                "sInfoFiltered":   "(filtrado de un total de _MAX_ áreas)",
+                "sInfoPostFix":    "",
+                "sSearch":         "Buscar: ",
+                "sUrl":            "",
+                "sInfoThousands":  ",",
+                "sLoadingRecords": "Cargando...",
+                "oPaginate": {
+                    "sFirst":    "Primero",
+                    "sLast":     "Último",
+                    "sNext":     "Siguiente",
+                    "sPrevious": "Anterior"
+                },
+                "oAria": {
+                    "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                }
+            }
+        });
+    } );
+    </script>
+
+    {% endblock %}

@@ -1,0 +1,7 @@
+AdminBundle\Entity\User:
+    profilePhotoFile:
+        mapping:           profilePhotoFile # required
+        filename_property: imageName     # required
+        size:              4096k
+        mime_type:         [image/png]
+        original_name:     imageOriginalName

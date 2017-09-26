@@ -5,7 +5,10 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Acceso;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Entity\Personal;
+use AppBundle\Entity\Area;
 
 /**
  * Acceso controller.
@@ -25,9 +28,13 @@ class AccesoController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $Accesos = $em->getRepository('AppBundle:Acceso')->findAll();
+        $personas = $em->getRepository('AppBundle:Personal')->findAll();
+        $areas = $em->getRepository('AppBundle:Area')->findAll();
+        //dump($Accesos);
+        //dump($Accesos[0]->getLugar());
 
         return $this->render('acceso/index.html.twig', array(
-            'Accesos' => $Accesos,
+            'Accesos' => $Accesos, 'personas' => $personas, 'areas' => $areas
         ));
     }
 
@@ -88,7 +95,7 @@ class AccesoController extends Controller
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('acceso_edit', array('id' => $Acceso->getId()));
+            return $this->redirectToRoute('acceso_show', array('id' => $Acceso->getId()));
         }
 
         return $this->render('acceso/edit.html.twig', array(

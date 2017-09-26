@@ -1,3 +1,11 @@
+admin_user:
+    resource: "@AdminBundle/Resources/config/routing.xml"
+    prefix:   /
+
 app:
     resource: '@AppBundle/Controller/'
     type: annotation
+
+admin_photo:
+    resource: "@AdminBundle/Resources/config/routing/photo.yml"
+    prefix:   /photo

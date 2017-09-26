@@ -1,0 +1,48 @@
+imports:
+#    - { resource: "@AdminBundle/Resources/config/security.yml" }
+#    - { resource: "@AdminBundle/Resources/config/services.yml" }
+
+fos_user:
+    db_driver: orm # other valid values are 'mongodb' and 'couchdb'
+    firewall_name: main
+    user_class: AdminBundle\Entity\User
+    registration:
+        form:
+          type: AdminBundle\Form\RegistrationType
+          name: admin_user_registration
+    from_email:
+        address: "%mailer_user%"
+        sender_name: "%mailer_user%"
+
+vich_uploader:
+    db_driver: orm
+    mappings:
+        product_image:
+          uri_prefix: /profiles/images
+          upload_destination: '%kernel.root_dir%/../web/profiles/images'
+          delete_on_remove:   true
+
+
+easy_admin:
+    entities:
+        User:
+            class: AdminBundle\Entity\User
+            form:
+                fields:
+                    - username
+                    - email
+                    - enabled
+                    - lastLogin
+                    # if administrators are allowed to edit users' passwords and roles, add this:
+                    - { property: 'plainPassword', type: 'text', type_options: { required: false } }
+                    - { property: 'roles', type: 'choice', type_options: { multiple: true, choices: { 'ROLE_USER': 'ROLE_USER', 'ROLE_ADMIN': 'ROLE_ADMIN' } } }
+    site_name: 'ACME Megacorp.'
+    design:
+
+#sonata_block:
+    #default_contexts: [cms]
+    #blocks:
+        # enable the SonataAdminBundle block
+        #sonata.admin.block.admin_list:
+            #contexts: [admin]
+        # ..

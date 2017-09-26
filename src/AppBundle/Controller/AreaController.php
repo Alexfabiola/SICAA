@@ -5,7 +5,10 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Area;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Entity\Acceso;
+use AppBundle\Entity\Check;
 
 /**
  * Area controller.
@@ -66,9 +69,13 @@ class AreaController extends Controller
     public function showAction(Area $area)
     {
         $deleteForm = $this->createDeleteForm($area);
-
+        $em = $this->getDoctrine()->getManager();
+        $accesos = $em->getRepository('AppBundle:Acceso')->findBy(array(
+                'lugar' => $area));
+        $checks = $em->getRepository('AppBundle:Check')->findBy(array(
+                'lugar' => $area));
         return $this->render('area/show.html.twig', array(
-            'area' => $area,
+            'area' => $area, 'accesos' => $accesos, 'checks' => $checks,
             'delete_form' => $deleteForm->createView(),
         ));
     }
@@ -88,7 +95,7 @@ class AreaController extends Controller
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('area_edit', array('id' => $area->getId()));
+            return $this->redirectToRoute('area_show', array('id' => $area->getId()));
         }
 
         return $this->render('area/edit.html.twig', array(

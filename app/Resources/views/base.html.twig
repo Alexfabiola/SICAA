@@ -2,12 +2,81 @@
 <html>
     <head>
         <meta charset="UTF-8" />
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
+        <title>{% block title %}SICAA{% endblock %}</title>
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+        {% block stylesheets %}
+        <script type='text/javascript'>window.onload = detectarCarga;function detectarCarga(){document.getElementById("imgLOAD").style.display="none";document.getElementById("body").style.visibility = "visible";}</script>
+        <link href="{{ asset('bundles/app/css/jquery-ui.css') }}" rel="stylesheet" media="screen">
+        <link rel="stylesheet" href="{{ asset('bundles/app/bootstrap/css/bootstrap.min.css') }}" />
+        <link rel="stylesheet" href="{{ asset('bundles/app/css/styles.css') }}">
+        {% endblock %}
     </head>
     <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
+      <div id="imgLOAD" style="text-align:center;position:absolute;top:0;bottom:0;left:0;right:0;height:20%;margin: auto;">
+          <h3>Cargando...</h3>
+          <div style="margin:auto;width:24px;height:24px;border:solid 2px transparent;border-top-color:  #29d;border-left-color:#29d;border-radius:50%;-webkit-animation: loading-bar-spinner 400ms linear infinite;-moz-animation: loading-bar-spinner 400ms linear infinite;-ms-animation: loading-bar-spinner 400ms linear infinite;-o-animation: loading-bar-spinner 400ms linear infinite;animation: loading-bar-spinner 400ms linear infinite;"></div>
+      </div>
+      <div class="header">
+             <div class="container">
+                <div class="row">
+                   <div class="col-md-10">
+                      <!-- Logo -->
+                      <div class="logo">
+                         <h1><a href="{{ path('homepage') }}">Sistema de Control de Acceso y Asistencia</a></h1>
+                      </div>
+                   </div>
+                   <div class="col-md-2">
+                      <div class="navbar navbar-inverse" role="banner">
+                          <nav class="collapse navbar-collapse bs-navbar-collapse navbar-right" role="navigation">
+                            <ul class="nav navbar-nav">
+                              <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Mi cuenta <b class="caret"></b></a>
+                                <ul class="dropdown-menu animated fadeInUp">
+                                  <li><a href="profile.html">Perfil</a></li>
+                                  <li><a href="login.html">Salir</a></li>
+                                </ul>
+                              </li>
+                            </ul>
+                          </nav>
+                      </div>
+                   </div>
+                </div>
+             </div>
+      </div>
+      <div id="body" class="page-content">
+        <div class="row">
+          <div class="col-md-2 col-xs-2 col-lg-2 col-sm-2">
+              <div class="sidebar content-box" style="display: block;">
+                      <ul class="nav">
+                          <!-- Main menu -->
+                          <li class="current"><a href="{{ path('homepage') }}"><i class="glyphicon glyphicon-home"></i> Inicio</a></li>
+                          <li><a href="{{ path('personal_index') }}"><i class="glyphicon glyphicon-user"></i> Personal</a></li>
+                          <li><a href="{{ path('area_index') }}"><i class="glyphicon glyphicon-list"></i> Área</a></li>
+                          <li><a href="{{ path('asistencia_index') }}"><i class="glyphicon glyphicon-calendar"></i> Asistencias</a></li>
+                          <li><a href="{{ path('check_index') }}"><i class="glyphicon glyphicon-check"></i> Checks</a></li>
+                          <li><a href="{{ path('acceso_index') }}"><i class="glyphicon glyphicon-lock"></i> Accesos</a></li>
+                          <li><a href="{{ path('reporte_index') }}"><i class="glyphicon glyphicon-list-alt"></i> Reportes</a></li>
+                          <li><a href=""><i class="glyphicon glyphicon-user glyphicon glyphicon-user"></i> Usuarios</a></li>
+                          
+                      </ul>
+                   </div>
+            </div>
+            {% block body %}{% endblock %}
+        </div>
+      </div>
+      <footer>
+        <div class="container">         
+              <div class="copy text-center">
+                <h5> Copyright © 2016-2017 Facyt.</h5>
+                <h5> Fabiola Alvarado </h5>
+              </div>
+        </div>
+      </footer>
+      {% block javascripts %}
+          <script src="{{ asset('bundles/app/jquery/2.1.4/jQuery-2.1.4.min.js') }}"></script>
+          <!-- Include all compiled plugins (below), or include individual files as needed -->
+          <script src="{{ asset('bundles/app/bootstrap/js/bootstrap.min.js') }}"></script>
+          {#<script src="{{ asset('bundles/app/js/custom.js') }}"></script>#}
+      {% endblock %}
     </body>
 </html>

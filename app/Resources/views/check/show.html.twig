@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>check</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ check.id }}</td>
+            </tr>
+            <tr>
+                <th>Fecha y Hora</th>
+                <td>{% if check.fechaHora %}{{ check.fechaHora|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Persona</th>
+                <td>{{ check.personal }}</td>
+            </tr>
+            <tr>
+                <th>Lugar</th>
+                <td>{{ check.lugar }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('check_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('check_edit', { 'id': check.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

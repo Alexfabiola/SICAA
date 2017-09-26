@@ -1,0 +1,47 @@
+{% trans_default_domain 'FOSUserBundle' %}
+<div class="content-box-large">
+			  				<div class="panel-heading">
+					            <div class="panel-title">Edición de Perfil</div>				          
+					        </div>
+			  				<div class="panel-body">
+{{ form_start(form, { 'action': path('fos_user_profile_edit'), 'attr': { 'class': 'fos_user_profile_edit form-horizontal' } }) }}
+    {{ form_errors(form) }}
+    <div class="form-group{% if form.username.vars.errors[0].message is defined %} has-error{% endif %}">
+        {{ form_label(form.username, null, {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+        <div class="col-sm-10">
+            {{ form_widget(form.username, {'attr': {'class': 'form-control'}}) }}
+            {% if form.username.vars.errors[0].message is defined %}
+            <span class="help-block">
+                {{ form.username.vars.errors[0].message }}
+            </span>
+            {% endif %}
+        </div>
+    </div>
+    <div class="form-group{% if form.email.vars.errors[0].message is defined %} has-error{% endif %}">
+        {{ form_label(form.email, null, {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+        <div class="col-sm-10">
+            {{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
+            {% if form.email.vars.errors[0].message is defined %}
+            <span class="help-block">
+                {{ form.email.vars.errors[0].message }}
+            </span>
+            {% endif %}
+        </div>
+    </div>
+    <div class="form-group{% if form.current_password.vars.errors[0].message is defined %} has-error{% endif %}">
+        {{ form_label(form.current_password, null, {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+        <div class="col-sm-10">
+            {{ form_widget(form.current_password, {'attr': {'class': 'form-control'}}) }}
+            {% if form.current_password.vars.errors[0].message is defined %}
+            <span class="help-block">
+                {{ form.current_password.vars.errors[0].message }}
+            </span>
+            {% endif %}
+        </div>
+    </div>
+    <div class="form-group" style="text-align: right;padding-right: 15px;">
+            <a class="btn btn-danger" href="{{ path('fos_user_profile_show') }}"><i class="fa fa-arrow-left fa-fw"></i>&nbsp;Cancelar</a>&nbsp;
+            <button class="btn btn-primary" type="submit"><i class="fa fa-save"></i> {{ 'profile.edit.submit'|trans({}, 'FOSUserBundle') }}</button>
+    </div>
+{{ form_end(form) }}
+</div></div>
